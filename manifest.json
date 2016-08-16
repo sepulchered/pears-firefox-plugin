@@ -7,15 +7,29 @@
     "48": "icons/pears-48.png",
     "96": "icons/pears-96.png"
   },
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["pearsExtCS.js"]
+      "js": ["content.js"]
     }
   ],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "applications": {
     "gecko": {
       "id": "some_email@pearsearch.org"
     }
+  },
+  "page_action": {
+    "default_icon": "icons/pears-32.png",
+    "default_text": "Track in PeARS"
   }
 }
