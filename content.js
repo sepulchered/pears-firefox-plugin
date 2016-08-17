@@ -1,7 +1,5 @@
-console.log('inserted PeARS plugin');
+chrome.runtime.onMessage.addListener(_processPage);
 
-chrome.runtime.onMessage.addListener(processPage);
-
-function processPage(message) {
-  console.log('received message from background script', message);
+function _processPage(message) {
+  console.log(message, 'msg');
 }
