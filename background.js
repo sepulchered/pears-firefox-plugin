@@ -5,4 +5,5 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
 chrome.pageAction.onClicked.addListener(function () {
   console.log('page action clicked');
+  chrome.tabs.sendMessage({enabled: true});
 });

@@ -9,7 +9,8 @@
   },
   "permissions": [
     "tabs",
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "options_ui": {
     "page": "options.html"
