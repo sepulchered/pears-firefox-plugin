@@ -16,14 +16,9 @@
     "page": "options.html"
   },
   "background": {
+    "matches": ["<all_urls>"],
     "scripts": ["background.js"]
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
   "applications": {
     "gecko": {
       "id": "some_email@pearsearch.org"

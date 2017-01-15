@@ -1,20 +1,33 @@
-// Get data for page from content script
-chrome.runtime.onMessage.addListener(processPageData);
+var settings;
 
-function processPageData(message) {
-  console.log(message);
+// load settings from local storage
+chrome.storage.local.get(
+  ['allowedDomainsRe', 'notAllowedDomainsRe'],
+  function _processSettingsFromStorage(res) {
+    settings = res;
+  }
+);
+
+function isPageAllowedToProcess(pageUrl) {
+  console.log('page ' + pageUrl + ' allowed to process');
+  return true;
 }
 
-function getSettings() {}
-function checkPageAllowed(pageUrl) {}
+function onPageProcessed(pageData) {
+  console.log('onPageProcessed', pageData);
+}
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  // Send message to content script with data on whether it should process page data
-  chrome.tabs.sendMessage(tabId, {allowed: true});  // for now allow for all pages
-  // Show PeARS page action if page is not allowed for user to be able to manually process page
-  chrome.pageAction.show(tab.id);  // for now always on
+  if (isPageAllowedToProcess(tab.url)) {
+    console.log(chrome.tabs.executeScript.toSource());
+    chrome.tabs.executeScript(tabId, {file: 'content.js'}, onPageProcessed);
+  } else {
+    // Show PeARS page action if page is not allowed for user to be able to manually process page
+    chrome.pageAction.show(tab.id);
+  }
 });
 
 chrome.pageAction.onClicked.addListener(function () {
+  var allowed = false;
   console.log('page action clicked');
 });
